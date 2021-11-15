@@ -1,0 +1,530 @@
+.TodoAppWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.TodoAppContainer {
+  width: 800px;
+  height: 600px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.085);
+  position: relative;
+  left: 120px;
+}
+
+.TodoSidebarWrapper {
+  width: 30%;
+  float: left;
+  height: 100%;
+  border-radius: 4px 0 0 4px;
+  /* border-right: thin solid #f5f5f5 */
+}
+
+.TodoSidebarWrapper .SidebarContainer {
+  padding: 16px;
+  height: 100%;
+  position: relative;
+}
+
+.TodoSidebarWrapper .SidebarContainer .TrashBtn {
+  padding: 16px;
+  margin-top: 32px;
+  font-size: 14px;
+  display: block;
+  color: #888;
+  letter-spacing: 0.25px;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s;
+}
+
+.TodoSidebarWrapper .SidebarContainer .TrashBtn.active {
+  transform: scale(1.025);
+  box-shadow: 0 2px 16px -2px rgba(0, 0, 0, 0.085);
+}
+
+.TodoSidebarWrapper .SidebarContainer .TrashBtn:not(.active):hover {
+  background: #f5f5f5;
+}
+.TodoSidebarWrapper .SidebarContainer .Title {
+  font-size: 24px;
+  margin-bottom: 24px;
+  padding-left: 8px;
+  color: rgb(18, 24, 37);
+  font-weight: normal;
+}
+.TodoAppWrapper .TodoAppContainer .ActionBtnWrapper {
+  filter: url("#goo");
+  position: absolute;
+  bottom: 0;
+}
+
+.TodoAppWrapper .TodoAppContainer .AddNewBtn {
+  display: block;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  border: none;
+  background: #f2709c; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #ff9472,
+    #f2709c
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #ff9472,
+    #f2709c
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  border-radius: 50%;
+  box-shadow: 0 8px 16px #f3719c22;
+  font-size: 24px;
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.TodoAppWrapper .TodoAppContainer .AddNewBtn:active {
+  transform: scale(1.1);
+}
+
+.TodoAppWrapper .TodoAppContainer .AddNewBtn:before,
+.TodoAppWrapper .TodoAppContainer .AddNewBtn:after {
+  content: "";
+  width: 26px;
+  height: 4px;
+  background: white;
+  position: absolute;
+  left: 11px;
+  bottom: 21px;
+  transform: rotate(90deg);
+  border-radius: 4px;
+}
+
+.TodoAppWrapper .TodoAppContainer .AddNewBtn:after {
+  transform: rotate(0deg);
+}
+
+.TodoAppWrapper .TodoAppContainer .AddNewBtn:focus {
+  outline: none;
+}
+
+.TodoSidebarWrapper .SidebarContainer .categoryItem {
+  padding: 12px;
+  color: rgba(0, 0, 0, 0.85);
+  margin-bottom: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.25px;
+  font-size: 14px;
+  color: #444;
+  border-left: 4px solid white;
+  user-select: none;
+}
+
+.TodoSidebarWrapper .SidebarContainer .categoryItem:not(.active):hover {
+  background: rgba(0, 0, 0, 0.035);
+}
+
+.TodoSidebarWrapper .SidebarContainer .categoryItem.active {
+  transform: scale(1.025);
+  box-shadow: 0 2px 16px -2px rgba(0, 0, 0, 0.085);
+  border-color: salmon;
+}
+
+.TodoViewerWrapper {
+  width: 69%;
+  float: left;
+  height: 100%;
+  position: relative;
+}
+
+.TodoViewerWrapper .ModalWrapper {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  left: 10px;
+  right: -10px;
+  bottom: 0;
+  top: 0;
+  pointer-events: none;
+  transition: all 0.2s;
+}
+
+.TodoViewerWrapper .ModalWrapper .AddTodoFormContainer {
+  padding: 8px 24px 32px;
+  background: #fff;
+  margin: 0 auto;
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+  border: thin solid #f0f0f0;
+  z-index: 1;
+  pointer-events: all;
+  border-radius: 4px;
+  width: 80%;
+}
+
+.TodoViewerWrapper .ModalWrapper .AddTodoFormContainer .AddTodoFormHeader {
+  display: flex;
+  padding: 16px 0 24px;
+}
+
+.TodoViewerWrapper .ModalWrapper .AddTodoFormContainer .AddTodoFormHeader a {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  color: white;
+  position: relative;
+  cursor: pointer;
+}
+
+.TodoViewerWrapper
+  .ModalWrapper
+  .AddTodoFormContainer
+  .AddTodoFormHeader
+  a:before,
+.TodoViewerWrapper
+  .ModalWrapper
+  .AddTodoFormContainer
+  .AddTodoFormHeader
+  a:after {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #888;
+  position: absolute;
+  left: 1px;
+  top: 11px;
+  transform: rotate(45deg);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.TodoViewerWrapper
+  .ModalWrapper
+  .AddTodoFormContainer
+  .AddTodoFormHeader
+  a:hover:before,
+.TodoViewerWrapper
+  .ModalWrapper
+  .AddTodoFormContainer
+  .AddTodoFormHeader
+  a:hover:after {
+  background: #333;
+}
+
+.TodoViewerWrapper
+  .ModalWrapper
+  .AddTodoFormContainer
+  .AddTodoFormHeader
+  a:after {
+  transform: rotate(-45deg);
+}
+
+.TodoViewerWrapper .ModalWrapper .AddTodoFormContainer .AddTodoFormHeader p {
+  margin: 0;
+  font-size: 14px;
+  width: 100%;
+  line-height: 24px;
+  opacity: 0.65;
+  font-weight: bold;
+}
+.TodoViewerWrapper .ModalWrapper .AddTodoFormContainer span {
+  display: block;
+  color: #333;
+}
+
+.TodoViewerWrapper .ModalWrapper .AddTodoFormContainer input {
+  padding: 8px;
+  width: 74%;
+  border-radius: 4px;
+  border: thin solid #f0f0f0;
+  font-size: 14px;
+  margin-right: 8px;
+}
+
+.TodoViewerWrapper .ModalWrapper .AddTodoFormContainer input:focus {
+  outline: none;
+}
+
+.TodoViewerWrapper .ModalWrapper .AddTodoFormContainer button {
+  padding: 8px 12px;
+  border: none;
+  background: #f2709c; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #ff9472,
+    #f2709c
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #ff9472,
+    #f2709c
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.TodoViewerWrapper .ModalWrapper .AddTodoFormContainer button.close {
+  margin-right: 8px;
+  margin-top: 16px;
+  background: white; /* fallback for old browsers */
+  color: #333;
+  border: thin solid #f0f0f0;
+}
+
+.TodoViewerWrapper .ModalWrapper .AddTodoFormContainer button.delete {
+  margin-top: 16px;
+  background: #ff416c; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #ff4b2b,
+    #ff416c
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #ff4b2b,
+    #ff416c
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.TodoViewerWrapper .ModalWrapper .AddTodoFormContainer button:active {
+  transform: scale(1.05);
+}
+
+.TodoViewerWrapper .ModalWrapper .AddTodoFormContainer button:focus {
+  outline: none;
+}
+
+.TodoViewerWrapper .TodoViewerContainer {
+  padding: 16px;
+  height: 100%;
+  transform: scale(1.005);
+  position: relative;
+  bottom: 16px;
+  left: 8px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid white;
+  transition: all 0.2s;
+}
+
+.TodoViewerWrapper .TodoViewerContainer .DoneTodoContainer {
+  padding: 8px;
+  background: #f9f9f9;
+  border-radius: 4px;
+  margin-top: 16px;
+}
+
+.TodoViewerWrapper
+  .TodoViewerContainer
+  .DoneTodoContainer
+  .TodoItem:not(.active):hover {
+  background: #f4f4f4;
+}
+
+.TodoViewerWrapper .TodoViewerContainer .DoneTodoContainer h1 {
+  font-size: 16px;
+  padding: 0 8px 8px 8px;
+  color: #353535;
+}
+
+.TodoViewerWrapper .TodoViewerContainer .DoneTodoContainer p {
+  color: #999;
+}
+
+.TodoViewerWrapper .TodoViewerContainer .EmptyTodoContainer p {
+  font-size: 14px;
+  padding: 8px;
+  color: #999;
+  letter-spacing: 0.25px;
+}
+
+.TodoViewerWrapper .TodoViewerContainer .TodoViewerContainerHeader {
+  display: flex;
+  align-content: flex-start;
+  margin-bottom: 24px;
+}
+
+.TodoViewerWrapper .TodoViewerContainer .TodoViewerContainerHeader .Title {
+  font-size: 24px;
+  padding-left: 8px;
+  color: rgb(21, 26, 36);
+  font-weight: normal;
+  width: 100%;
+}
+
+.TodoViewerWrapper
+  .TodoViewerContainer
+  .TodoViewerContainerHeader
+  .ShowDoneBtn {
+  width: 120px;
+  padding: 8px;
+  align-self: center;
+  border: none;
+  background: #f5f5f5;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.TodoViewerWrapper
+  .TodoViewerContainer
+  .TodoViewerContainerHeader
+  .ShowDoneBtn:hover {
+  background: #eee;
+}
+
+.TodoViewerWrapper
+  .TodoViewerContainer
+  .TodoViewerContainerHeader
+  .ShowDoneBtn:focus {
+  outline: none;
+}
+
+.TodoViewerWrapper
+  .TodoViewerContainer
+  .TodoViewerContainerHeader
+  .ShowDoneBtn:active {
+  transform: scale(1.05);
+}
+.TodoViewerWrapper
+  .TodoViewerContainer
+  .TodoViewerContainerHeader
+  .ShowDoneBtn.active {
+  background: rgb(23, 139, 248);
+  color: white;
+  transform: scale(1.05);
+}
+.TodoViewerWrapper .TodoViewerContainer .TodoItem {
+  display: flex;
+  align-content: flex-start;
+  padding: 8px 16px;
+  color: #444;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.TodoViewerWrapper .TodoViewerContainer .TodoItem .checkWrapper {
+  width: 66px;
+  height: 27px;
+  text-align: right;
+}
+
+.TodoViewerWrapper .TodoViewerContainer .TodoItem .deleteBtn,
+.TodoViewerWrapper .TodoViewerContainer .TodoItem .putBackBtn {
+  display: inline-block;
+  width: 27px;
+  height: 27px;
+  margin-left: 4px;
+  border-radius: 4px;
+  vertical-align: top;
+  border: thin solid transparent;
+  cursor: pointer;
+  background: transparent;
+}
+.TodoViewerWrapper .TodoViewerContainer .TodoItem .deleteBtn:hover {
+  background: #f002;
+  border-color: #f002;
+}
+
+.TodoViewerWrapper .TodoViewerContainer .TodoItem .putBackBtn:hover {
+  background: #26f2;
+  border-color: #26f2;
+}
+.TodoViewerWrapper .TodoViewerContainer .TodoItem .deleteBtn:focus,
+.TodoViewerWrapper .TodoViewerContainer .TodoItem .putBackBtn:focus {
+  outline: none;
+}
+.TodoViewerWrapper .TodoViewerContainer .TodoItem .deleteBtn img,
+.TodoViewerWrapper .TodoViewerContainer .TodoItem .putBackBtn img {
+  width: 18px;
+  position: relative;
+  left: -4px;
+  top: 2px;
+}
+
+.TodoViewerWrapper .TodoViewerContainer .TodoItem .putBackBtn img {
+  left: -3px;
+}
+
+.TodoViewerWrapper .TodoViewerContainer .TodoItem.active {
+  box-shadow: 0 0 16px -2px rgba(0, 0, 0, 0.105);
+  transform: scale(1.01);
+}
+
+.TodoViewerWrapper .TodoViewerContainer .TodoItem:not(.active):hover {
+  background: #fafafa;
+}
+.TodoViewerWrapper .TodoViewerContainer .TodoItem label {
+  width: 24px;
+  height: 24px;
+  background: white;
+  border-radius: 4px;
+  display: inline-block;
+  border: thin solid #f2709c;
+  cursor: pointer;
+  position: relative;
+}
+
+.TodoViewerWrapper .TodoViewerContainer .TodoItem input[type="checkbox"] {
+  display: none;
+}
+
+.TodoViewerWrapper
+  .TodoViewerContainer
+  .TodoItem
+  input[type="checkbox"]:checked
+  + label:before,
+.TodoViewerWrapper
+  .TodoViewerContainer
+  .TodoItem
+  input[type="checkbox"]:checked
+  + label:after {
+  transition: all 0.2s;
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 4px;
+  background: #f2709c;
+  border-radius: 4px;
+  top: 10px;
+  left: 4px;
+  position: absolute;
+  transform: rotate(-45deg);
+}
+
+.TodoViewerWrapper .TodoViewerContainer .TodoItem label:hover {
+  background: #f2709c33;
+}
+
+.TodoViewerWrapper
+  .TodoViewerContainer
+  .TodoItem
+  input[type="checkbox"]:checked
+  + label:after {
+  width: 10px;
+  transform: rotate(45deg);
+  left: 1px;
+  top: 13px;
+}
+
+.TodoViewerWrapper .TodoViewerContainer .TodoItem p {
+  width: 100%;
+  margin: 0;
+  line-height: 24px;
+  font-size: 14px;
+}

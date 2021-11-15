@@ -1,0 +1,7 @@
+.TodoItemList {
+    overflow-y: scroll;
+    height: 350px;
+    width: 100%;
+    padding-right: 17px;
+}
+

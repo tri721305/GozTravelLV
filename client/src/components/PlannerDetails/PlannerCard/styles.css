@@ -1,0 +1,106 @@
+.TodoItem {
+  display: grid;
+  grid-template-columns: 60px 185px min-content;
+  align-items: center;
+  padding: 10px 0;
+  animation-name: appear;
+  animation-duration: 0.5s;
+  background-color: lightblue;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.TodoItem-dueTime {
+  text-align: center;
+}
+
+.TodoItem-dueTime__time {
+  margin: 0;
+  color: #fff;
+  font-weight: 300;
+  font-family: monospace;
+}
+
+.TodoItem-dueTime__meridiem {
+  margin: 0;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  opacity: 0.5;
+}
+
+.TodoItem-todo {
+  padding: 10px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.TodoItem-todo__text {
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.03rem;
+}
+
+.TodoItem-todo__memo {
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.03rem;
+  opacity: 0.5;
+}
+
+.TodoItem-delete__button {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: none;
+  border: none;
+  opacity: 0;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.TodoItem:hover .TodoItem-delete__button {
+  opacity: 0.7;
+}
+
+.TodoItem-delete__buttonIcon {
+  width: 100%;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+.Date {
+  padding: 20px 0;
+  text-align: center;
+}
+
+.Date__day {
+  padding: 0;
+  margin: 0;
+  font-weight: 300;
+  color: #fff;
+}
+
+.Date__full-date {
+  padding: 5px 0;
+  margin: 0;
+  font-weight: 400;
+  color: #fff;
+  /* opacity: 0.7; */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.TodoItemList {
+  overflow-y: scroll;
+  height: 350px;
+  width: 100%;
+  padding-right: 17px;
+}
