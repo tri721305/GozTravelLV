@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Card,
   CardActions,
@@ -17,14 +17,16 @@ import { useDispatch } from "react-redux";
 import { deletePlan } from "../../../../actions/plans";
 import { Link, useHistory } from "react-router-dom";
 import useStyles from "./styles";
+import { UserContext } from "../../../../App";
 const PlannerCard = ({ plan, setCurrentId }) => {
   let publicUrl = process.env.PUBLIC_URL + "/";
 
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
-
-  const user = JSON.parse(localStorage.getItem("profile"));
+  const { userState } = useContext(UserContext);
+  const user = userState.currentUser;
+  // const user = JSON.parse(localStorage.getItem("profile"));
 
   // const userId = user?.result?.googleId || user?.result?._id;
 
@@ -72,8 +74,10 @@ const PlannerCard = ({ plan, setCurrentId }) => {
                         86400000}{" "}
                       days
                     </li>
-                    {(user?.result?.googleId === plan?.creator ||
-                      user?.result?._id === plan?.creator) && (
+                    {/* {(user?.result?.googleId === plan?.creator ||
+                      user?.result?._id === plan?.creator) && ( */}
+                    {(user?.googleId === plan?.creator ||
+                      user?._id === plan?.creator) && (
                       <li>
                         <Button
                           size="small"

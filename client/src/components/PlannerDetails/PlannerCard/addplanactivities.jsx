@@ -1,20 +1,21 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { Typography, TextField, Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import "./styles.css";
 import trashIcon from ".././DuPhong/TodoItem/assets/trash.png";
 import useStyles from "./styles";
 import { commentPlan } from "../../../actions/plans";
+import { UserContext } from "../../../App";
 const AddActivities = ({ plan, plandate }) => {
   const classes = useStyles();
+  const { userState } = useContext(UserContext);
   const [comments, setComments] = useState(plan?.comments);
   const [comment, setComment] = useState("");
   const [time, setTime] = useState("");
   const dispatch = useDispatch();
-
   const commentsRef = useRef();
-
   const user = JSON.parse(localStorage.getItem("profile"));
+  const user1 = userState.currentUser;
 
   const handleClick = async () => {
     // const finalComment = `${user.result.name}: ${comment} `;
@@ -89,7 +90,7 @@ const AddActivities = ({ plan, plandate }) => {
         </div>
       </div>
 
-      {user?.result?.name && (
+      {user1?.name && (
         <div
           className="form-activities"
           style={{

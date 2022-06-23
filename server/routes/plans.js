@@ -19,9 +19,9 @@ router.get("/search", getPlansBySearch);
 router.get("/", getPlans);
 router.get("/:id", getPlan);
 
-router.post("/", auth, createPlan);
+router.post("/", createPlan);
 router.patch("/:id", auth, updatePlan);
 // router.patch("/:id/likePlan", auth, likePlan);
 router.delete("/:id", auth, deletePlan);
-router.post("/:id/commentPlan", auth, commentPlan);
+router.post("/:id/commentPlan", commentPlan);
 export default router;

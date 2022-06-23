@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import FileBase from "react-file-base64";
@@ -8,7 +8,7 @@ import FileBase from "react-file-base64";
 import { useHistory } from "react-router-dom";
 import useStyles from "./styles";
 import { createPlan, updatePlan } from "../../../actions/plans";
-
+import { UserContext } from "../../../App";
 const FormPlan = ({ currentId, setCurrentId }) => {
   const [planData, setPlanData] = useState({
     location: "",
@@ -17,6 +17,8 @@ const FormPlan = ({ currentId, setCurrentId }) => {
     endDate: "",
     selectedFile: "",
   });
+
+  const { userState } = useContext(UserContext);
   const plan = useSelector((state) =>
     currentId
       ? state.plans.plans.find((message) => message._id === currentId)
@@ -25,8 +27,8 @@ const FormPlan = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const user = JSON.parse(localStorage.getItem("profile"));
-
+  // const user = JSON.parse(localStorage.getItem("profile"));
+  const user = userState.currentUser;
   const history = useHistory();
 
   useEffect(() => {
@@ -43,22 +45,26 @@ const FormPlan = ({ currentId, setCurrentId }) => {
       selectedFile: "",
     });
   };
+  console.log(user, plan);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(user);
     if (currentId === 0) {
-      dispatch(createPlan({ ...planData, name: user?.result?.name }, history));
+      // dispatch(createPlan({ ...planData, name: user?.result?.name }, history));
+      dispatch(createPlan({ ...planData, name: user?.name }, history));
       clear();
     } else {
       dispatch(
-        updatePlan(currentId, { ...planData, name: user?.result?.name })
+        // updatePlan(currentId, { ...planData, name: user?.result?.name })
+        updatePlan(currentId, { ...planData, name: user?.name })
       );
       clear();
     }
   };
 
-  if (!user?.result?.name) {
+  if (!user?.name) {
+    // if (!userState.currentUser.name) {
     return (
       <Paper className={classes.paper}>
         <Typography variant="h6" align="center">

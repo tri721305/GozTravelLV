@@ -70,7 +70,7 @@ const NavbarVS2 = () => {
             <ul className="pl-0">
               <li className="top-bar-btn-booking">
                 <Link className="btn btn-yellow" to="/tour-details">
-                  Sign InSS <i className="fa fa-paper-plane" />
+                  Sign In <i className="fa fa-paper-plane" />
                 </Link>
               </li>
               <li className="tp-lang">
@@ -148,7 +148,7 @@ const NavbarVS2 = () => {
                 </li>
 
                 <li>
-                  <Link to="/posts">Blogs</Link>
+                  <Link to="/blog">Blogs</Link>
                 </li>
               </ul>
             </li>

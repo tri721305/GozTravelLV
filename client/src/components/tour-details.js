@@ -6,12 +6,14 @@ import TourDetails from "./PlanList/Plandetails/activities";
 import Subscribe from "./section-components/subscribe";
 import Footer from "./global-components/footer";
 import PlannersTri from "../components/PlannerDetails/plannerdetails";
+import MapPlan from "../components/MapPlan/MapPlan";
 const TourDetailsPage = () => {
   return (
     <div>
       <NavbarVS2 />
       <PageHeader headertitle="Planner" />
       <PlannersTri />
+      <MapPlan />
       {/* <Subscribe /> */}
       <Footer />
     </div>

@@ -16,7 +16,7 @@ import SearachV2 from "./section-components/search-v2";
 const Home_V1 = () => {
   return (
     <div>
-      <NavbarVS2 />
+      {/* <NavbarVS2 /> */}
       <Banner />
       <Searach />
       <Intro />
