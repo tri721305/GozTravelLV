@@ -1,39 +1,84 @@
-// import express from "express";
-// import bodyParser from "body-parser";
-// import mongoose from "mongoose";
-// import cors from "cors";
-// import { createServer } from "http";
-// import { Server } from "socket.io";
-// import postRoutes from "./routes/posts.js";
-// import userRoutes from "./routes/users.js";
-// import planRoutes from "./routes/plans.js";
-// import socket from "./socket.js";
-// const app = express();
-// // const httpServer = createServer(app);
-// // const io = new Server(httpServer, { cors: { origin: "*" } });
+import express from "express";
+// import S3 from "aws-sdk/clients/s3.js";
+// import fs from "fs";
+// import multer from "multer";
+import mongoose from "mongoose";
+// import {
+//   S3Client,
+//   AbortMultipartUploadCommand,
+//   PutObjectCommand,
+// } from "@aws-sdk/client-s3";
+// import sharp from "sharp";
+// import crypto from "crypto";
+// // Config Environment variable
+// import env from "dotenv";
+// env.config();
 
-// app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-// app.use(cors());
+// const randomImageName = (bytes = 32) =>
+//   crypto.randomBytes(bytes).toString("hex");
 
-// // app.use((req, res, next) => {
-// //   io.req = req;
-// //   req.io = io;
-// //   next();
+// const bucketName = process.env.AWS_BUCKET_NAME;
+// const region = process.env.AWS_BUCKET_REGION;
+// const accessKeyId = process.env.AWS_ACCESS_KEY;
+// const secretAccessKey = process.env.AWS_SECRET_KEY;
+
+// const s3 = new S3Client({
+//   //   accessKeyId: accessKeyId,
+//   credentials: {
+//     secretAccessKey: secretAccessKey,
+//     accessKeyId: accessKeyId,
+//   },
+//   region: region,
+// });
+
+const app = express();
+
+// // const prisma = new PrismaClient();
+
+// //Config Upload Image
+// const storage = multer.memoryStorage();
+// const upload = multer({ storage: storage });
+
+// // app.get("/api/posts", async (req, res) => {
+// //   const posts = prisma.posts.findMany({
+// //     orderBy: [{ created: "desc" }],
+// //   });
 // // });
 
-// app.use("/posts", postRoutes);
-// app.use("/user", userRoutes);
-// app.use("/plans", planRoutes);
+// app.post("/api/posts", upload.single("image"), async (req, res) => {
+//   console.log("req", req.body, req.caption, req.file);
+//   //   req.file.buffer;
 
-// app.get("/", (req, res) => {
-//   res.send("App is running");
+//   // Resize Image
+//   const buffer = await sharp(req.file.buffer)
+//     .resize({ width: 1920, height: 1080, fit: "contain" })
+//     .toBuffer();
+
+//   let idImage = randomImageName();
+//   const params = {
+//     Bucket: bucketName,
+//     Key: idImage,
+//     Body: buffer,
+//     ContentType: req.file.mimetype,
+//   };
+
+//   const command = new PutObjectCommand(params);
+
+//   await s3.send(command).then((r) => console.log("re", idImage));
+
+//   // const post = await prisma.posts.create({
+//   //   data: {
+//   //     caption: req.body.caption,
+//   //     imageName: idImage,
+//   //   },
+//   // });
+//   res.send({});
 // });
-// // socket(io);
-// //abc
-// const CONNECTION_URL =
-//   "mongodb+srv://admin:admin123@cluster0.1q1s7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-// const PORT = process.env.PORT || 5000;
 
+// const CONNECTION_URL =
+//   "mongodb+srv://minhtri123:minhtri123@cluster0.n5z1xdx.mongodb.net/Thesis?retryWrites=true&w=majority";
+// // Create a MongoClient with a MongoClientOptions object to set the Stable API version
+// const PORT = process.env.PORT || 5000;
 // mongoose
 //   .connect(CONNECTION_URL, {
 //     useNewUrlParser: true,
@@ -47,131 +92,12 @@
 //   )
 //   .catch((error) => console.log(`${error} did not connect`));
 
-// mongoose.set("useFindAndModify", false);
-import express from "express";
-import bodyParser from "body-parser";
-import mongoose from "mongoose";
-import cors from "cors";
-import { createServer } from "http";
-import { Server } from "socket.io";
-import * as socket from "./socket.js";
-import postRoutes from "./routes/posts.js";
-import userRoutes from "./routes/users.js";
-import UserRoutes from "./routes/User.js";
-import planRoutes from "./routes/plans.js";
-import User from "./models/user.js";
-import AuthRoutes from "./routes/auth.js";
-// import UserRoutes from './routes/'
-import PostRoutes from "./routes/post.js";
-// import socketIo from "socket.io";
-const app = express();
-const server = createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST", "PUT", "PATCH", "UPDATE", "DELETE", "OPTIONS"],
-  },
+// app.listen(3000, () => console.log("listening on port 8080"));
+
+mongoose.connect("mongodb://localhost:127.0.0.1/admin");
+const connection = mongoose.connection;
+connection.once("open", () => {
+  console.log("MongoDB database connection established successfully");
 });
-
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors());
-app.use(express.json());
-
-app.use((req, res, next) => {
-  io.req = req;
-  req.io = io;
-  next();
-});
-// app.use("/api/auth", AuthRoutes);
-// app.use("/posts", postRoutes);
-// app.use("/user", userRoutes);
-app.use("/plans", planRoutes);
-
-app.use("/api/auth", AuthRoutes);
-app.use("/api/user", UserRoutes);
-app.use("/api/post", PostRoutes);
-app.get("/", (req, res) => {
-  res.send("App is running");
-});
-
-io.on("connection", (socket) => {
-  console.log("hello world");
-  if (io.req) {
-    socket.broadcast.emit("friend-login-status", { user_id: io.req.userId });
-    addSocketIdInDB(socket.id, io.req.userId);
-
-    socket.on("disconnect", () => {
-      console.log("connection");
-      socket.broadcast.emit("friend-logout-status", {
-        user_id: io.req.userId,
-      });
-      io.req.userId = null;
-    });
-  }
-});
-
-async function addSocketIdInDB(socket_id, user_id) {
-  const user = await User.findById(user_id);
-  if (socket_id) {
-    user.socketId = socket_id;
-  }
-  await user.save();
-}
-
-// //abc
-const CONNECTION_URL =
-  "mongodb+srv://admin:admin123@cluster0.1q1s7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const PORT = process.env.PORT || 5000;
-
-mongoose
-  .connect(CONNECTION_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-  })
-  .then(() =>
-    server.listen(PORT, () =>
-      console.log(`Server Running on Port: http://localhost:${PORT}`)
-    )
-  )
-  .catch((error) => console.log(`${error} did not connect`));
-
-mongoose.set("useFindAndModify", false);
-// import express from "express";
-// import bodyParser from "body-parser";
-// import mongoose from "mongoose";
-// import cors from "cors";
-
-// import postRoutes from "./routes/posts.js";
-// import userRoutes from "./routes/users.js";
-// import planRoutes from "./routes/plans.js";
-
-// const app = express();
-
-// app.use(bodyParser.json({ limit: "30mb", extended: true }));
-// app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-// app.use(cors());
-
-// app.use("/posts", postRoutes);
-// app.use("/user", userRoutes);
-// app.use("/plans", planRoutes);
-
-// app.get("/", (req, res) => {
-//   res.send("App is running");
-// });
-// //abc
-// const CONNECTION_URL =
-//   "mongodb+srv://admin:admin123@cluster0.1q1s7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-// const PORT = process.env.PORT || 5000;
-
-// mongoose
-//   .connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-//   .then(() =>
-//     app.listen(PORT, () =>
-//       console.log(`Server Running on Port: http://localhost:${PORT}`)
-//     )
-//   )
-//   .catch((error) => console.log(`${error} did not connect`));
-
-// mongoose.set("useFindAndModify", false);
+app.listen(3000, () => console.log("listening on port 8080"));
+//

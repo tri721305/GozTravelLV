@@ -14,6 +14,9 @@ export const fetchPostById = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: "Something went wrong" });
+    return res
+      .status(500)
+      .json({ errorMessage: "Something went wrong, please check again!!" });
   }
 };
 

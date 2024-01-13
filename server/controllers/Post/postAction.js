@@ -8,7 +8,7 @@ export const createPost = async (req, res) => {
   if (!content && content.trim().length === 0 && !image) {
     return res.status(422).json({
       error:
-        "Post Image or Write Some Content  to Post. Can`t upload empty post",
+        "Post Image or Write Some Content  to Post. Can`t upload empty post. Please check again !",
     });
   }
   try {
@@ -39,7 +39,7 @@ export const createPost = async (req, res) => {
 
     res
       .status(201)
-      .json({ message: "post created successfully", post: postData });
+      .json({ message: "Post created successfully", post: postData });
 
     let dataToSend = {
       req,

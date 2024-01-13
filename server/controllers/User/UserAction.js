@@ -51,7 +51,7 @@ export const sendFriendRequest = async (req, res) => {
 
     res
       .status(200)
-      .json({ message: "Friend Request Sended", friend: chunkData });
+      .json({ message: "Friend Request has been Sended", friend: chunkData });
 
     const sender = await FriendRequest.findById(save.id).populate("sender");
     let notification = await CreateNotification({
@@ -71,7 +71,9 @@ export const sendFriendRequest = async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: "Something went wrong" });
+    return res
+      .status(500)
+      .json({ error: "Something went wrong, please check again" });
   }
 };
 
@@ -196,6 +198,16 @@ export const updateProfilePic = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
+export const updateProfi = async (req, res) => {
+  const { url } = req.body;
+  try {
+    const user = await User.findById(req.userId);
+    user.profile = profile_url;
+  } catch (error) {
+    console.log("err", error);
   }
 };
 
